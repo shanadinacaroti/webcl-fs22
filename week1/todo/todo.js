@@ -22,6 +22,8 @@ const TodoController = () => {
 
     const addTodo = () => {
         const newTodo = Todo();
+        const convertedTodo = newTodo.getText().toUpperCase();
+        newTodo.setText(convertedTodo);
         todoModel.add(newTodo);
         return newTodo;
     };
@@ -35,7 +37,7 @@ const TodoController = () => {
 
         scheduler.add( ok =>
            fortuneService( text => {        // schedule the fortune service and proceed when done
-                   newTodo.setText(text);
+                   newTodo.setText(text.toUpperCase());
                    ok();
                }
            )
@@ -59,6 +61,8 @@ const TodoController = () => {
 
 const TodoItemsView = (todoController, rootElement) => {
 
+
+
     const render = todo => {
 
         function createElements() {
@@ -72,6 +76,24 @@ const TodoItemsView = (todoController, rootElement) => {
         }
         const [deleteButton, inputElement, checkboxElement] = createElements();
 
+
+        function changeToUppercase(e) {
+            const val = e.target.value.toUpperCase();
+            return  todo.setText(val);
+        }
+
+        // function checkValidation(e) {
+        //     const valLength = e.target.value.length;
+        //     console.log(valLength);
+        //     if (valLength < 3) {
+        //         alert("BIIIATCH, min. 3 characters!")
+        //     }
+        // }
+
+        inputElement.oninput = changeToUppercase;
+        // inputElement.onchange = checkValidation;
+
+
         checkboxElement.onclick = _ => todo.setDone(checkboxElement.checked);
         deleteButton.onclick    = _ => todoController.removeTodo(todo);
 
@@ -84,6 +106,7 @@ const TodoItemsView = (todoController, rootElement) => {
         } );
 
         todo.onTextChanged(() => inputElement.value = todo.getText());
+        //console.log(todo.onTextChanged(() => inputElement.value = todo.getText())); // returns Undefined
 
         rootElement.appendChild(deleteButton);
         rootElement.appendChild(inputElement);
