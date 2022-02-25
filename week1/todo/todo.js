@@ -22,8 +22,8 @@ const TodoController = () => {
 
     const addTodo = () => {
         const newTodo = Todo();
-        const convertedTodo = newTodo.getText().toUpperCase();
-        newTodo.setText(convertedTodo);
+        const convertedTodo = newTodo.getText().toUpperCase(); // add toUpperCase()-Method
+        newTodo.setText(convertedTodo); // add toUpperCase()-Method
         todoModel.add(newTodo);
         return newTodo;
     };
@@ -37,7 +37,7 @@ const TodoController = () => {
 
         scheduler.add( ok =>
            fortuneService( text => {        // schedule the fortune service and proceed when done
-                   newTodo.setText(text.toUpperCase());
+                   newTodo.setText(text.toUpperCase()); // add toUpperCase()-Method
                    ok();
                }
            )
@@ -76,22 +76,25 @@ const TodoItemsView = (todoController, rootElement) => {
         }
         const [deleteButton, inputElement, checkboxElement] = createElements();
 
-
+        // Change input to Uppercase
         function changeToUppercase(e) {
             const val = e.target.value.toUpperCase();
             return  todo.setText(val);
         }
 
-        // function checkValidation(e) {
-        //     const valLength = e.target.value.length;
-        //     console.log(valLength);
-        //     if (valLength < 3) {
-        //         alert("BIIIATCH, min. 3 characters!")
-        //     }
-        // }
+        // check input for min. 3 characters
+        function checkValidation(e) {
+            const valLength = e.target.value.length;
+
+            if (valLength < 3) {
+                inputElement.style.backgroundColor = "red";
+            } else {
+                inputElement.style.backgroundColor = "white";
+            }
+        }
 
         inputElement.oninput = changeToUppercase;
-        // inputElement.onchange = checkValidation;
+        inputElement.onchange = checkValidation;
 
 
         checkboxElement.onclick = _ => todo.setDone(checkboxElement.checked);
@@ -106,7 +109,6 @@ const TodoItemsView = (todoController, rootElement) => {
         } );
 
         todo.onTextChanged(() => inputElement.value = todo.getText());
-        //console.log(todo.onTextChanged(() => inputElement.value = todo.getText())); // returns Undefined
 
         rootElement.appendChild(deleteButton);
         rootElement.appendChild(inputElement);
