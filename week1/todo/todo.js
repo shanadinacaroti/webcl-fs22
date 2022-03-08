@@ -3,7 +3,7 @@
 // requires ../dataflow/dataflow.js
 
 const TodoController = () => {
-
+    // Model-Start
     const Todo = () => {                                // facade
         const textAttr = Observable("text");            // we current don't expose it as we don't use it elsewhere
         const doneAttr = Observable(false);
@@ -16,6 +16,7 @@ const TodoController = () => {
             onTextChanged: textAttr.onChange,
         }
     };
+    // Model-End
 
     const todoModel = ObservableList([]); // observable array of Todos, this state is private
     const scheduler = Scheduler();
@@ -45,6 +46,7 @@ const TodoController = () => {
     };
 
     return {
+        // API -> View kann diese ausnutzen
         numberOfTodos:      todoModel.count,
         numberOfopenTasks:  () => todoModel.countIf( todo => ! todo.getDone() ),
         addTodo:            addTodo,
@@ -79,7 +81,7 @@ const TodoItemsView = (todoController, rootElement) => {
         // Change input to Uppercase
         function changeToUppercase(e) {
             const val = e.target.value.toUpperCase();
-            return  todo.setText(val);
+            return todo.setText(val);
         }
 
         // check input for min. 3 characters
@@ -87,13 +89,13 @@ const TodoItemsView = (todoController, rootElement) => {
             const valLength = e.target.value.length;
 
             if (valLength < 3) {
-                inputElement.style.backgroundColor = "red";
+                inputElement.style.backgroundColor = "red"; // besser mit Class lösen
             } else {
                 inputElement.style.backgroundColor = "white";
             }
         }
 
-        inputElement.oninput = changeToUppercase;
+        inputElement.oninput  = changeToUppercase;
         inputElement.onchange = checkValidation;
 
 
