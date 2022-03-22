@@ -1,3 +1,4 @@
+
 /**
  *
  * @type { String }
@@ -28,3 +29,4 @@ const foo2 = arg => {
 
 foo2("chchc");
 foo2(3);
+
