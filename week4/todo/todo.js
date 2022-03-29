@@ -52,9 +52,21 @@ const TodoController = () => {
         );
     };
 
+
+    const numberOfTodos     = todoModel.count;
+    const numberOfopenTasks = () =>
+        todoModel.countIf( todo => ! todo.getDone());
+
+    const openTaskRation = () =>
+        0 === numberOfTodos() // Yoda-Expression
+        ? undefined
+        : numberOfopenTasks() / numberOfTodos();
+
+
     return {
-        numberOfTodos:      todoModel.count,
-        numberOfopenTasks:  () => todoModel.countIf( todo => ! todo.getDone() ),
+        numberOfTodos,
+        numberOfopenTasks,
+        openTaskRation,
         addTodo:            addTodo,
         addFortuneTodo:     addFortuneTodo,
         removeTodo:         todoModel.del,
