@@ -33,6 +33,7 @@
         }
 
         /* todo: make a rainbow-colored shadow by blurring a positioned background */
+<<<<<<< HEAD
         .rainbow::before {
             content: "";
             position: absolute; /* um aus stacking rauszukommen */
@@ -41,6 +42,19 @@
             z-index: -1;
             border-radius: inherit;
             filter: blur(.4em);
+=======
+
+        .rainbow::before {
+            content: "";
+            color: black;
+            position: absolute;
+            inset: -.3em;
+            background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red, purple);
+            z-index: -1;
+            border-radius: inherit;
+            filter: blur(.4em);
+
+>>>>>>> upstream/main
         }
 
     </style>
