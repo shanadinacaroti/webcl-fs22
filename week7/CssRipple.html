@@ -29,7 +29,7 @@
             letter-spacing: .5em;
             transform:      scale(3);
             position:       relative;
-            --ripple-x:     0px;
+            --ripple-x:     0px; /* costom property */
             --ripple-y:     0px;
         }
 
@@ -37,14 +37,16 @@
             content:            "";
             pointer-events:     none;
             position:           absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
+            inset:              0;  /* top: 0; left: 0; bottom: 0; right: 0; */
             background:         lightsteelblue;
             mix-blend-mode:     multiply;
-            clip-path:         circle(0% at var(--ripple-x) var(--ripple-y));
+            clip-path:          circle(0% at var(--ripple-x) var(--ripple-y));
         }
+
         button.clicked::before {
-            animation: ripple ease-in-out 400ms; // note: when changing duration, update the js handler
+            animation: ripple ease-in-out 400ms; /* note: when changing duration, update the js handler */
         }
+
         @keyframes ripple {
             0% {
                 clip-path:         circle(0%   at var(--ripple-x) var(--ripple-y));
@@ -80,6 +82,10 @@
     const buttons = document.querySelectorAll("button.ripple");
     buttons.forEach( button =>
         button.onclick = event => {
+        // console.log(event.offsetX);
+            //button.style["--ripple-x"] = event.offsetX + "px"; // ::before-Klasse wird nicht neu gerendert
+            button.style.setProperty("--ripple-x", event.offsetX + "px");
+            button.style.setProperty("--ripple-y", event.offsetY + "px");
             button.classList.add("clicked");
             setTimeout( _ => button.classList.remove("clicked"), 400); // we need to set back for the next click
         }
