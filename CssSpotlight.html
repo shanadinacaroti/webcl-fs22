@@ -55,7 +55,7 @@
 <main>
 
     <div id="glasspane" >
-        <div id="spotlight"></div>
+        <div id="spotlight"></div> <!-- der weisse Kreis -->
     </div>
 
     <div>
@@ -75,8 +75,8 @@
             return ;
         }
         glasspane.classList.add('spot-shade');
-        spotlight.style['left'] = evt.clientX + 'px';
-        spotlight.style['top']  = evt.clientY + 'px';
+        spotlight.style['left'] = evt.clientX + 'px'; // x-Position ist relative zum Viewport
+        spotlight.style['top']  = evt.clientY + 'px'; // y-Position ist relative zum Viewport
     }
 </script>
 

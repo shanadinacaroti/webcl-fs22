@@ -60,7 +60,7 @@
         <path d="M0 60 A60,60 0 0,0 120,60 A60,40 0 0,1 0,60 Z" opacity="1" fill="#F4CB76" fill-opacity="1" />
       </g>
       <g id="${id}_closeLid">
-        <path d="M0 60 A60,60 0 0,1 120,60 A60,40 0 0,1 0,60 Z" opacity="1" fill="#FDDC99" fill-opacity="1" />
+        <path d="M0 60 A60,60 0 0,1 120,60 A60,40 0 0,1 0,60 Z" opacity="0" fill="#FDDC99" fill-opacity="1" />
       </g>
     </svg>
     `;
@@ -85,6 +85,8 @@
         const xo = rect.x + rect.width/2;  // x-origin
         const yo = rect.y + rect.height/2; // y-origin
 
+        console.log(xo);
+        console.log(yo);
         document.querySelector(eyeId).onclick = evt =>
             closeLidLayer.style.opacity = (closeLidLayer.style.opacity === '1') ? '0' : '1';
 
@@ -109,6 +111,8 @@
                 ye *= 0.9;
             }
             iris.style.transform = `translateX(${xe}px) translateY(${ye}px)`;
+            console.log("xe:", xe);
+            console.log("ye:", ye);
         }
     };
 
