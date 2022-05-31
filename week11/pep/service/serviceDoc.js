@@ -4,13 +4,13 @@ import "../domainDoc.js"
 /**
  * @callback onDevelopersReadyCallback
  * @param    {!Developer[]} devs - array of developers, might be empty
- * @return   {undefined} void
+ * @return   { void }
  */
 
 /**
  * @callback onProjectsReadyCallback
  * @param    {!Project[]} projects - array of projects, might be empty
- * @return   {undefined} void
+ * @return   { void }
  */
 
 /**

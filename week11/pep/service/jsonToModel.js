@@ -10,12 +10,13 @@ export { toDeveloper, toProject }
  * @typedef DevMapper
  * @function
  * @param  { RestDeveloper} restDev
- * @param  { Number}        idx
+ * @param  { Number}        idx     - artificial index (to be improved later)
  * @return { Developer }
  */
 
 /**
- * @param {String} imagePath - base path for the image URLs
+ * Curried-style mapping function.
+ * @param   { String } imagePath - base path for the image URLs
  * @returns { DevMapper }
  */
 const toDeveloper = imagePath => (restDev, idx) => (
