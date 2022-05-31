@@ -5,10 +5,10 @@ export { client }
  * @param   {!String} url            - Uniform Resource Locator of the endpoint. Mandatory.
  * @param   {String}  [method="GET"] - The REST method, one of GET, POST, PUT, DELETE, HEAD, OPTION. Defaults to GET.
  * @param   {?Object} [data=null]    - Optional data in case the method (e.g. POST, PUT) demands it. Will be stringified.
- * @returns {Promise<Response>}
+ * @returns {Promise<any>}           - object as data structure or error text or status text
  * @example
  * client('https://jsonplaceholder.typicode.com/todos/1')
- *    .then( json => console.log(json) )
+ *    .then( data => console.log(data) )
  *    .catch( err => console.error(err) );
  */
 const client = (url, method = 'GET', data = null) => {
@@ -28,7 +28,7 @@ const client = (url, method = 'GET', data = null) => {
     }
     return fetch(url, request)
         .then(resp => {                             // fetch API cares for the general error handling
-            if (Number(resp.status) === 204) {
+            if (204 === Number(resp.status)) {
                 console.log("got special", 204);    // special: Grails returns this on successful DELETE
                 return Promise.resolve("ok");
             }
@@ -37,7 +37,7 @@ const client = (url, method = 'GET', data = null) => {
             }
             if (Number(resp.status) < 400) {
                 console.log("status", resp.status);
-                return resp.text();
+                return Promise.reject(resp.text()); // TODO: unclear if reject or resolve is better (eg. redirect)
             }
             return Promise.reject(resp.status);
         })
