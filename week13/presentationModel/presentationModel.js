@@ -40,7 +40,7 @@ const ModelWorld = () => {
         const qualifier = getQualifier(); // lazy get
         if (null == qualifier) { return; }
         const key = qualifier + "." + name; // example: "Person.4711.firstname" "VALID" -> "Person.4711.firstname.VALID"
-        let candidates = data[key];
+        const candidates = data[key];
         if (null == candidates) {
             data[key] = [observable]; // nothing to notify
             return;
@@ -58,7 +58,7 @@ const ModelWorld = () => {
         }
     };
     const updateQualifier = (qualifier, newQualifier, observables) => {
-        for (let name in observables) {
+        for (const name in observables) {
             const observable = observables[name];
             if (null != qualifier) {                    // remove qualifier from old candidates
                 const oldKey = qualifier + "." + name;
