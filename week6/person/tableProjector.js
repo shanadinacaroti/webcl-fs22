@@ -27,12 +27,12 @@ const bindTextInput = (textAttr, inputElement) => {
 
 const tableDataProjector = textAttr => {
 
-    const td = document.createElement("TD")
+    const td = document.createElement("TD");
     const inputElement = document.createElement("INPUT");
-    td.appendChild(inputElement)
+    td.appendChild(inputElement);
     inputElement.type = "text";
     inputElement.size = 20;
-    inputElement.classList.add("inputField")
+    inputElement.classList.add("inputField");
 
     bindTextInput(textAttr, inputElement);
 
@@ -40,8 +40,8 @@ const tableDataProjector = textAttr => {
 };
 
 const listItemTable = (() => {
-    let hasHeader = false;
-    const tbody = document.createElement('TBODY');
+    const hasHeader = false;
+    const tbody     = document.createElement('TBODY');
     const table = document.createElement('TABLE');
     const headerRow = document.createElement('TR');
     tbody.appendChild(headerRow);
@@ -59,18 +59,18 @@ const listItemProjector = (masterController, selectionController, rootElement, m
 
     if (!listItemTable.hasHeader) {
         attributeNames.forEach(name => {
-            const headerData = document.createElement("TH")
+            const headerData = document.createElement("TH");
             headerData.innerText = name.toUpperCase();
             listItemTable.header.appendChild(headerData)
-        })
+        });
         const headerDataDelete = document.createElement("TH");
         headerDataDelete.style.width = "20px";
-        listItemTable.header.appendChild(headerDataDelete)
+        listItemTable.header.appendChild(headerDataDelete);
         listItemTable.hasHeader = true;
     }
 
     const itemRow = (_ => {
-        const itemRow = document.createElement("TR")
+        const itemRow = document.createElement("TR");
         const inputElementsData = [];
 
         attributeNames.forEach(name => {
@@ -79,18 +79,16 @@ const listItemProjector = (masterController, selectionController, rootElement, m
             inputElementsData.push(td);
         });
 
-        inputElementsData.forEach(inputElement => {
-            itemRow.appendChild(inputElement)
-        });
+        inputElementsData.forEach(inputElement => itemRow.appendChild(inputElement));
 
         return itemRow;
     })();
 
     const deleteButton = (_ => {
-        const td = document.createElement("TD")
+        const td = document.createElement("TD");
         const deleteButton = document.createElement("Button");
         deleteButton.setAttribute("class", "delete");
-        deleteButton.className.concat("deleteButton")
+        deleteButton.className.concat("deleteButton");
         deleteButton.innerHTML = "&times;";
         deleteButton.onclick = _ => masterController.removeModel(model);
         td.appendChild(deleteButton);
@@ -100,18 +98,18 @@ const listItemProjector = (masterController, selectionController, rootElement, m
                     ? deleteButton.classList.add("selected")
                     : deleteButton.classList.remove("selected")
             );
-        })()
+        })();
         return td;
     })();
 
     (function setControllerBinding() {
         masterController.onModelRemove((removedModel, removeMe) => {
             if (removedModel !== model) return;
-            itemRow.remove()
+            itemRow.remove();
             selectionController.clearSelection();
             removeMe();
         });
-    })()
+    })();
 
     itemRow.addEventListener("mouseover", () => selectionController.setSelectedModel(model));
 
